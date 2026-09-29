@@ -49,4 +49,15 @@ printf("Enter Battery Temperature (C): ");
         printf("Battery Level: MEDIUM\n");
     else
         printf("Battery Level: LOW - Charge Required\n");
+if (voltage > 4.2 || voltage < 3.0 ||
+        current > 20 || temperature > 45)
+    {
+        printf("\nBMS ACTION: BATTERY PROTECTION ACTIVATED\n");
+    }
+    else
+    {
+        printf("\nBMS ACTION: BATTERY OPERATING SAFELY\n");
+    }
 
+    return 0;
+}
