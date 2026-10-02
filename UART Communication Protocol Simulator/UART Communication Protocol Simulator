@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <string.h>
+
+#define START_BYTE 0xAA
+
+typedef struct
+{
+    unsigned char start;
+    unsigned char device_id;
+    unsigned char data;
+    unsigned char checksum;
+} UART_Frame;
+include
