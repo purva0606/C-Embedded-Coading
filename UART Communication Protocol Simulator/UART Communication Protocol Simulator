@@ -10,4 +10,23 @@ typedef struct
     unsigned char data;
     unsigned char checksum;
 } UART_Frame;
-include
+/* Calculate checksum */
+unsigned char calculate_checksum(unsigned char device_id,
+                                 unsigned char data)
+{
+    return device_id ^ data;
+}
+
+/* Create UART frame */
+UART_Frame create_frame(unsigned char device_id,
+                        unsigned char data)
+{
+    UART_Frame frame;
+
+    frame.start = START_BYTE;
+    frame.device_id = device_id;
+    frame.data = data;
+    frame.checksum = calculate_checksum(device_id, data);
+
+    return frame;
+}
