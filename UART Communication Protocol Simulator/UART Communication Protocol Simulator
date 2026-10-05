@@ -30,3 +30,13 @@ UART_Frame create_frame(unsigned char device_id,
 
     return frame;
 }
+* Display transmitted frame */
+void transmit_frame(UART_Frame frame)
+{
+    printf("\n--- UART TRANSMISSION ---\n");
+
+    printf("START     : 0x%02X\n", frame.start);
+    printf("DEVICE ID : 0x%02X\n", frame.device_id);
+    printf("DATA      : 0x%02X\n", frame.data);
+    printf("CHECKSUM  : 0x%02X\n", frame.checksum);
+}
