@@ -40,3 +40,52 @@ void transmit_frame(UART_Frame frame)
     printf("DATA      : 0x%02X\n", frame.data);
     printf("CHECKSUM  : 0x%02X\n", frame.checksum);
 }
+/* Receive and verify frame */
+void receive_frame(UART_Frame frame)
+{
+    unsigned char checksum;
+
+    printf("\n--- UART RECEPTION ---\n");
+
+    checksum = calculate_checksum(frame.device_id,
+                                  frame.data);
+
+    printf("Received DATA: %d\n", frame.data);
+
+    if (checksum == frame.checksum)
+    {
+        printf("CHECKSUM: VALID\n");
+        printf("STATUS: DATA RECEIVED SUCCESSFULLY\n");
+    }
+    else
+    {
+        printf("CHECKSUM: ERROR\n");
+        printf("STATUS: DATA CORRUPTED\n");
+    }
+}
+
+int main()
+{
+    UART_Frame frame;
+
+    unsigned char device_id;
+    unsigned char data;
+    printf("     UART COMMUNICATION SIMULATOR\n");
+
+    printf("\nEnter Device ID (0-255): ");
+    scanf("%hhu", &device_id);
+
+    printf("Enter Sensor Data (0-255): ");
+    scanf("%hhu", &data);
+
+    /* Create UART packet */
+    frame = create_frame(device_id, data);
+
+    /* Transmit */
+    transmit_frame(frame);
+
+    /* Receive */
+    receive_frame(frame);
+
+    return 0;
+}
